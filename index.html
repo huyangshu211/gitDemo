@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #box{
+            position: relative;
+            width: 500px;
+            height: 500px;
+            margin: 50px auto;
+            border: 1px solid;
+        }    
+        #box > div{
+            position: absolute;
+            width: 50px;
+            height: 50px;
+        }
+    </style>
+    <script src="./animation.js"></script>
+</head>
+<body>
+    <div id="box"></div>
+    <script>
+        let box = document.getElementById("box");
+        let div = box.getElementsByTagName("div");
+        let {floor,random} = Math;
+        let arr=[];
+        let len=100;
+        for(let i=0;i<len;i++){
+            arr.push(i);
+        }
+        //随机排序
+        arr.sort((a,b)=>random()-0.5);
+
+        //console.log(arr);
+        let i=0;
+        run();
+        function run(){
+            let value = arr[i];
+            if(i>len-1)return;
+            let top = floor(value/10)*50;
+            let left = (value%10)*50;
+            box.innerHTML+=`<div></div>`;//特别注意是加等于
+            div[i].style.cssText=`background:url('images/1.png') -${left}px -${top}px`;
+            animation(div[i],{
+                data:{
+                    top,
+                    left
+                }
+            },30,()=>{
+                i++;
+                requestAnimationFrame(run);
+            })
+        }
+    </script>
+</body>
+</html>
